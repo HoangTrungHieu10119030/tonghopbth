@@ -1,72 +1,80 @@
 ﻿using System;
 
-namespace bài_4
+namespace bai_4
 {
-    class DaThuc
+    class HocSinh
     {
-        private int n;
-        private int[] a;
-        public DaThuc()
+        private string hoten;
+        private double diemtoan, diemli, diemhoa;
+
+        public HocSinh()
         {
-            n = 0;
-            a = null;
+            hoten = "";
+            diemtoan = diemli = diemhoa = 0;
         }
-        public DaThuc(int n)
+
+        public HocSinh(string hoten, double diemtoan, double diemli, double diemhoa)
         {
-            this.n = n;
-            a = new int[n];
+            this.hoten = hoten;
+            this.diemtoan = diemtoan;
+            this.diemli = diemli;
+            this.diemhoa = diemhoa;
         }
+
         public void Nhap()
         {
-            Console.WriteLine("Nhap thong tin cua da thuc");
-            for (int i = 0; i < n; i++)
+            Console.Write("Nhap ho ten: ");
+            hoten = Console.ReadLine();
+            Console.Write("Nhap diem toan: ");
+            diemtoan = double.Parse(Console.ReadLine());
+            Console.Write("Nhap diem li: ");
+            diemli = double.Parse(Console.ReadLine());
+            Console.Write("Nhap diem hoa: ");
+            diemhoa = double.Parse(Console.ReadLine());
+        }
+
+        public virtual void Hien()
+        {
+            Console.WriteLine("Ho ten: " + hoten);
+            Console.WriteLine("Diem toan: " + diemtoan);
+            Console.WriteLine("Diem li: " + diemli);
+            Console.WriteLine("Diem hoa: " + diemhoa);
+        }
+
+    }
+
+    class QL
+    {
+        private HocSinh[] dshs;
+        private int shs;
+        public void Nhap()
+        {
+            Console.Write("Nhap so hoc sinh: ");
+            shs = int.Parse(Console.ReadLine());
+            dshs = new HocSinh[shs];
+            for (int i = 0; i < shs; i++)
             {
-                Console.Write("a[{0}] = ", i);
-                a[i] = int.Parse(Console.ReadLine());
+                dshs[i] = new HocSinh();
+                dshs[i].Nhap();
             }
         }
+
         public void Hien()
         {
-            Console.WriteLine("Thong tin cac he so cua da thuc");
-            for (int i = 0; i < n; i++)
-                Console.Write("{0}, ", i);
+            for (int i = 0; i < shs; i++)
+                dshs[i].Hien();
         }
-        public DaThuc Tong(DaThuc t2)
+
+    }
+
+    class Ap
+    {
+        static void Main(string[] args)
         {
-            if (this.n == t2.n)
-            {
-                DaThuc d = new DaThuc(this.n);
-                for (int i = 0; i < n; i++)
-                    d.a[i] = this.a[i] + t2.a[i];
-                return d;
-            }
-            else return null;
-        }
-        public DaThuc Hieu(DaThuc t2)
-        {
-            if (this.n == t2.n)
-            {
-                DaThuc d = new DaThuc(this.n);
-                for (int i = 0; i < n; i++)
-                    d.a[i] = this.a[i] - t2.a[i];
-                return d;
-            }
-            else return null;
-        }
-        class App
-        {
-            static void Main()
-            {
-                DaThuc d1 = new DaThuc();
-                DaThuc d2 = new DaThuc();
-                Console.WriteLine("Da thuc thu nhat"); d1.Hien();
-                Console.WriteLine("Da thuc thu hai"); d2.Hien();
-                DaThuc d3 = d1.Tong(d2);
-                DaThuc d4 = d1.Hieu(d2);
-                Console.WriteLine("Da thuc tong"); d3.Hien();
-                Console.WriteLine("Da thuc hieu"); d4.Hien();
-                Console.ReadLine();
-            }
+            QL t = new QL();
+            t.Nhap();
+            t.Hien();
+            Console.ReadLine();
         }
     }
 }

@@ -2,56 +2,92 @@
 
 namespace bài_3
 {
-    class Queue
+    class Time
     {
-        private int front;
-        private int rear;
-        private int[] q;
-        public Queue()
+        private int gio, phut, giay;
+
+        public Time()
         {
-            front = rear = 0;
+            gio = 0;
+            phut = 0;
+            giay = 0;
         }
-        public Queue(int n)
+
+        public Time(int gio, int phut, int giay)
         {
-            q = new int[n];
+            this.gio = gio;
+            this.phut = phut;
+            this.giay = giay;
         }
-        public bool isEmpty()
+
+        public int Gio
         {
-            return (front == 0 || front > 0 ? true : false);
-        }
-        public bool isFull()
-        {
-            return (rear > q.Length - 1 ? true : false);
-        }
-        public void Push(int x)
-        {
-            if (isFull())
+            get
             {
-                Console.WriteLine("Queue day");
-                return;
+                return gio;
             }
-            rear++;
-            q[rear] = x;
-        }
-        public void Pop()
-        {
-            if (isEmpty())
+            set
             {
-                Console.WriteLine("Queue rong");
-                return;
-            }
-            q[front] = 0;
-            front++;
-        }
-        class App
-        {
-            static void Main()
-            {
-                int n;
-                Queue q = new Queue();
-                Console.WriteLine("Nhap vao so nguyen n: ");
-                n = int.Parse(Console.ReadLine());
+                gio = value;
             }
         }
+
+        public int Phut
+        {
+            get
+            {
+                return phut;
+            }
+            set
+            {
+                phut = value;
+            }
+        }
+
+        public int Giay
+        {
+            get
+            {
+                return giay;
+            }
+            set
+            {
+                giay = value;
+            }
+        }
+
+        public void Hien()
+        {
+            Console.WriteLine("{0}:{1}:{2}", gio, phut, giay);
+        }
+
+        public int normalize(int gio, int phut, int giay)
+        {
+            phut = giay / 60;
+            giay = giay % 60;
+            gio = phut / 60;
+            phut = phut % 60;
+            gio = gio % 24;
+
+            return gio; return phut; return giay;
+        }
+
+        public Time advance(int gio, int phut, int giay)
+        {
+            Time t = new Time();
+            t.gio = this.gio + gio;
+            t.phut = this.phut + phut;
+            t.giay = this.giay + giay;
+
+            t.phut = giay / 60;
+            t.giay = giay % 60;
+            t.gio = phut / 60;
+            t.phut = phut % 60;
+            t.gio = gio % 24;
+            return t;
+        }
+
+
+
     }
-}
+
